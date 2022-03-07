@@ -34,6 +34,12 @@ namespace ExampleApp
         internal async Task<RootResponse> GetRootAsync() =>
             (await GetAsync<RootResponse>(new Uri(_client.ApiBaseAddress))).Content;
 
+        internal async Task<Uri> CreateMasspaymentAsync(Uri uri, MassPayment request)
+        {
+            var r = await PostAsync(uri, request);
+            return r.Response.Headers.Location;
+        }
+        
         internal async Task<Uri> CreateBeneficialOwnerAsync(Uri uri, CreateBeneficialOwnerRequest request)
         {
             var response = await PostAsync(uri, request);
