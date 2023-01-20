@@ -182,6 +182,9 @@ namespace ExampleApp
         internal async Task<TransferFailureResponse> GetTransferFailureAsync(string id) =>
             (await GetAsync<TransferFailureResponse>(new Uri($"{_client.ApiBaseAddress}/transfers/{id}/failure"))).Content;
 
+        internal async Task<GetTransfersResponse> GetCustomerTransfersAsync(Uri customerUri) =>
+            (await GetAsync<GetTransfersResponse>(new Uri(customerUri.AbsoluteUri + "/transfers"))).Content;
+
         internal async Task<Uri> CreateWebhookSubscriptionAsync(Uri uri, string url, string secret) =>
             (await PostAsync(uri, new CreateWebhookSubscriptionRequest {Url = url, Secret = secret})).Response.Headers.Location;
 
@@ -314,5 +317,7 @@ namespace ExampleApp
 
             return r;
         }
+
+
     }
 }
